@@ -2,15 +2,40 @@
 
 public class Node {
     private String city;
-    private int miles;
-    private int minutes;
+    private float miles;
+    private float minutes;
     private boolean visited;
+    private int path;
 
-    public Node(String city, int miles, int minutes) {
+    public Node(String city, float miles, float minutes) {
         this.city = city;
         this.miles = miles;
         this.minutes = minutes;
         visited = false;
+        path = -1;
+    }
+
+    public Node(String city, float miles, float minutes, int path) {
+        this.city = city;
+        this.miles = miles;
+        this.minutes = minutes;
+        visited = false;
+        this.path = path;
+    }
+
+    public Node(Node node) {
+        this.city = node.city;
+        this.miles = node.miles;
+        this.minutes = node.minutes;
+        visited = false;
+        this.path = node.path;
+    }
+
+    public float getCost() {
+        if (miles==0 && minutes==0) {
+            return 0;
+        }
+        return miles/(minutes/60);
     }
 
     public String getCity() {
@@ -21,7 +46,7 @@ public class Node {
         this.city = city;
     }
 
-    public int getMiles() {
+    public float getMiles() {
         return miles;
     }
 
@@ -29,7 +54,7 @@ public class Node {
         this.miles = miles;
     }
 
-    public int getMinutes() {
+    public float getMinutes() {
         return minutes;
     }
 
@@ -37,12 +62,20 @@ public class Node {
         this.minutes = minutes;
     }
 
+    public void setVisited() {
+        visited = true;
+    }
+
     public boolean isVisited() {
         return visited;
     }
 
-    public void setVisited(boolean visited) {
-        this.visited = visited;
+    public int getPath() {
+        return path;
+    }
+
+    public void setPath(int path) {
+        this.path = path;
     }
 
     @Override
@@ -52,7 +85,10 @@ public class Node {
                 ", miles=" + miles +
                 ", minutes=" + minutes +
                 ", visited=" + visited +
+                ", Path=" + path +
+                ", Cost=" + getCost() +
                 '}';
     }
+
 }
 
